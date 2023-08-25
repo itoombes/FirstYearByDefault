@@ -4,5 +4,8 @@
     "bootstrap": "^5.3.1",
     "ffmpeg-static": "^5.2.0",
     "tinyduration": "^3.3.0"
+  },
+  "devDependencies": {
+    "electron": "^26.1.0"
   }
 }

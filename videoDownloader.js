@@ -1,6 +1,6 @@
 const yt = require('@googleapis/youtube')
 const { spawn } = require('child_process')
-const { apiKey } = require('../secrets.json')
+const { apiKey } = require('./secrets.json')
 
 // This is a client instance of the YouTube API
 const client = yt.youtube({
@@ -96,14 +96,11 @@ function selectSong() {
 
 // downloads the selected video to a local directory
 function downloadSong(videoURL, videoID) {
-    const ytdlp = spawn('cmd.exe', [
-        'cd resources',
-        '/c',
-        'yt-dlp',
-        videoURL,
-        '-P',
-        '-o',
-        `${videoID}.%(ext)s`,
+    const ytdlp = spawn('yt-dlp', [
+        `${videoURL}`,
+        `-o ./${videoID}.%(ext)s`,
+        '-N 10',
+        '-f best',
         '--ffmpeg-location',
         './node_modules./ffmpeg-static/'
     ])
