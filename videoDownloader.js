@@ -1,6 +1,6 @@
 const yt = require('@googleapis/youtube')
 const { spawn } = require('child_process')
-const { apiKey } = require('./secrets.json')
+const { apiKey } = require('../secrets.json')
 
 // This is a client instance of the YouTube API
 const client = yt.youtube({
