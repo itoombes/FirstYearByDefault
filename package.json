@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@googleapis/youtube": "^11.0.0",
+    "ffmpeg-static": "^5.2.0",
     "tinyduration": "^3.3.0"
   }
 }
