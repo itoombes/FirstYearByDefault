@@ -1,6 +1,6 @@
 const yt = require('@googleapis/youtube')
 const { spawn } = require('child_process')
-const { apiKey } = require('./secrets.json')
+const { apiKey } = require('../secrets.json')
 
 // This is a client instance of the YouTube API
 const client = yt.youtube({
@@ -46,13 +46,13 @@ async function YouTubeQuery(input) {
         resultList.push(result)
     })
     
-    // 
+    // sends a second request to the API for the duration of each video
     const videoResponse = await client.videos.list({
         part: "contentDetails",
         id: `${resultList[0].id},${resultList[1].id},${resultList[2].id},${resultList[3].id},${resultList[4].id}`
     })
 
-    // 
+    // formats each duration into standard HH:MM:SS format
     for (let i = 0; i < videoResponse.data.items.length; i++) {
         vidDurationIso = videoResponse.data.items[i].contentDetails.duration
         let vidDurationTiny = require('tinyduration').parse(vidDurationIso)
@@ -63,7 +63,7 @@ async function YouTubeQuery(input) {
     return resultList
 };
 
-// prints out the selections for the 
+// prints the selections to the console; will be sunsetted for the UI
 function SelectEntry(resultList) {
     for (let i = 0; i < resultList.length; i++) {
         console.log(`Option ${i + 1}:`)
@@ -79,6 +79,7 @@ function SelectEntry(resultList) {
     })
 }
 
+// selects the song based on input from the 
 function selectSong() {
     const nums = ['1', '2', '3', '4', '5']
     return new Promise((resolve) => {
@@ -93,18 +94,16 @@ function selectSong() {
     })
 }
 
-function downloadSong(songUrl) {
+// downloads the selected video to a local directory
+function downloadSong(videoURL, videoID) {
     const ytdlp = spawn('cmd.exe', [
         'cd resources',
         '/c',
         'yt-dlp',
-        songUrl,
-        '--force-overwrites',
-        '-x',
-        '--audio-format',
-        'opus',
+        videoURL,
+        '-P',
         '-o',
-        'song.%(ext)s',
+        `${videoID}.%(ext)s`,
         '--ffmpeg-location',
         './node_modules./ffmpeg-static/'
     ])
