@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@googleapis/youtube": "^11.0.0",
+    "tinyduration": "^3.3.0"
+  }
+}

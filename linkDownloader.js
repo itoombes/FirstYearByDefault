@@ -1,27 +1,37 @@
 const yt = require('@googleapis/youtube')
 const { spawn } = require('child_process')
 const { apiKey } = require('./secrets.env')
+
+// This is a client instance of the YouTube API
 const client = yt.youtube({
     version: 'v3',
     auth: apiKey
 })
+
+// Readline is a nodeJS interface for entering information; this will be sunsetted for the UI
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 })
 
+// This prompts the user via the command prompt to enter search terms for the video
 readline.question("Search on YouTube: ", query => {
     readline.pause()
     YouTubeQuery(query).then(index => SelectEntry(index))
 })
 
+// A helper function which calls the YouTube API and returns the 5 most relevant results
 async function YouTubeQuery(input) {
-    const queryRes = await client.search.list({
+
+    // using the provided input string, makes a G-API request using the "snippet" param
+    const queryResponse = await client.search.list({
         part: "snippet",
         q: input
     })
-    let resultIndex = []
-    queryRes.data.items.forEach(item => {
+
+    // adds each item returned by queryResponse to a list
+    let resultList = []
+    queryResponse.data.items.forEach(item => {
         vidTitle = item.snippet.title;
         vidChannel = item.snippet.channelTitle
         vidId = item.id.videoId;
@@ -33,13 +43,16 @@ async function YouTubeQuery(input) {
             link: `https://youtube.com/watch?v=${vidId}`,
             thumb: vidThumb
         }
-        resultIndex.push(result)
+        resultList.push(result)
     })
-    const videoRes = await client.videos.list({
+    
+    // 
+    const videoResponse = await client.videos.list({
         part: "contentDetails",
-        id: `${resultIndex[0].id},${resultIndex[1].id},${resultIndex[2].id},${resultIndex[3].id},${resultIndex[4].id}`
+        id: `${resultList[0].id},${resultList[1].id},${resultList[2].id},${resultList[3].id},${resultList[4].id}`
     })
-    console.log(videoRes.data.items.length)
+
+    // 
     for (let i = 0; i < videoRes.data.items.length; i++) {
         vidDurationIso = videoRes.data.items[i].contentDetails.duration
         let vidDurationTiny = require('tinyduration').parse(vidDurationIso)
@@ -50,6 +63,7 @@ async function YouTubeQuery(input) {
     return resultIndex
 };
 
+// prints out the selections for the 
 function SelectEntry(index) {
     for (let i = 0; i < index.length; i++) {
         console.log(`Option ${i + 1}:`)
