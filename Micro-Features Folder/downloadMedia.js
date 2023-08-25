@@ -53,6 +53,21 @@ function videoDownload(url, format = "mp4") {
     const x = spawn(
         "yt-dlp",
         [
+            '-f',
+            `${format}`,
+            `${url}`
+        ]
+    );
+    dispStatus(x);
+
+}
+
+// For comments, description, subtitles, thumbnails
+function metaDownload(url, metaData="thumbnails") {
+    
+    const x = spawn(
+        "yt-dlp",
+        [
             '-x',
             '--audio-format',
             `${format}`,
@@ -63,4 +78,4 @@ function videoDownload(url, format = "mp4") {
 
 }
 
-audioDownload("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+videoDownload("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "mp4");

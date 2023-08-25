@@ -4,5 +4,23 @@
     "bootstrap": "^5.3.1",
     "ffmpeg-static": "^5.2.0",
     "tinyduration": "^3.3.0"
-  }
+  },
+  "name": "youtube_downloader",
+  "version": "1.0.0",
+  "description": "A tool designed to download media files (videos, audio etc.), primarily from YouTube.",
+  "main": "videoDownloader.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node videoDownloader.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itoombes/FirstYearByDefault.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itoombes/FirstYearByDefault/issues"
+  },
+  "homepage": "https://github.com/itoombes/FirstYearByDefault#readme"
 }
