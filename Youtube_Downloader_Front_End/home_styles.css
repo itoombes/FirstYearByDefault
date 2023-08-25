@@ -4,12 +4,14 @@ body {
     margin-right: auto;
     width: 50%; /* Set to whatever width you want or remove if not needed */
     text-align: center; /* To center the text inside the form */
+    font-family: 'Cherry Bomb One';
     }
 
 h1 {
     text-align: centre;
-    font-size: 3em;
+    font-size: 4em;
     color: white;
+    font-family: 'Cherry Bomb One';
 }
 
 #form label {
