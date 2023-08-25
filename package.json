@@ -9,7 +9,9 @@
   "version": "1.0.0",
   "description": "A tool designed to download media files (videos, audio etc.), primarily from YouTube.",
   "main": "videoDownloader.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "electron": "^26.1.0"
+  },
   "scripts": {
     "test": "node videoDownloader.js"
   },
