@@ -1,5 +1,5 @@
-secrets.json
 node_modules
 package-lock.json
 *.mp*
 *.opus
+package-lock.json
