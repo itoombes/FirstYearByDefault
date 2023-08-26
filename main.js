@@ -24,20 +24,19 @@ app.whenReady().then(() => {
 // when data is received from the ipcRenderer process
 ipcMain.on("input", (event, data) => {
   // extract the relevant data
-  url = data.videoURL;
+  id = data.videoID;
+  url = `https://youtube.com/watch?v=${data.videoID}`;
   format = data.format;
   fileType = data.fileType;
   
   // send a download request to yt-dlp
-  downloadVideo(url, format, fileType)
+  downloadVideo(url, id, format, fileType)
 
   // send a confirmation message back to the ipcRenderer
   event.reply("reply", `downloaded ${url}`)
 });
 
-function downloadVideo(videoURL, format, fileType) {
-    videoID = videoURL.split("?v=")[1]
-    
+function downloadVideo(videoURL, videoID, format, fileType) {
     // adjust the yt-dlp arguments based on user input
     options = []
     if (format == "ba" || format == "wa") {
@@ -60,7 +59,7 @@ function downloadVideo(videoURL, format, fileType) {
         '-N 10',
         '-f',
         `${format}`,
-        '--remux-video'
+        '--remux-video',
         `${fileType}`,
         '--ffmpeg-location',
         './node_modules./ffmpeg-static/'

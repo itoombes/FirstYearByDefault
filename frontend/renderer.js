@@ -3,9 +3,11 @@ function sendInput() {
   // pull values from the UI
   option = document.getElementById("inputOption").value;
   video = document.getElementById("inputString").value;
+  videoID = /(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?/.exec(video)[1] 
+  console.log(videoID)
 
   // if the user hasn't input a string, stop the process
-  if (video == "") {
+  if (videoID == "") {
     console.error("Invalid input string!");
     return 0;
   }
@@ -16,7 +18,7 @@ function sendInput() {
   
   // package the data into an object
   data = {
-    videoURL: video,
+    videoID: videoID,
     format: format,
     fileType: fileType
   }
