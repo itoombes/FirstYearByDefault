@@ -19,7 +19,7 @@ def download():
     yt_dlp_path = './yt-dlp.exe'  # Update this to your yt-dlp path
     ffmpeg_path = './ffmpeg-6.0-essentials_build/bin/'  # Update this to your ffmpeg path
 
-    format_option = "bestaudio/best" if is_audio else "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
+    format_option = "bestaudio[ext=m4a]/best[ext=mp4]/best" if is_audio else "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
 
     command = [
         yt_dlp_path,
