@@ -72,7 +72,7 @@ function SelectEntry(resultList) {
     selectSong().then(selection => {
         let selectedVideo = resultList[selection - 1]
         try {
-            downloadSong(selectedVideo.link)
+            downloadSong(selectedVideo.link, selectedVideo.id)
         } catch (err) {
             console.log(err)
         }
@@ -102,7 +102,7 @@ function downloadSong(videoURL, videoID) {
         '-N 10',
         '-f best',
         '--ffmpeg-location',
-        './node_modules./ffmpeg-static/'
+        './node_modules/ffmpeg-static/'
     ])
 
     ytdlp.stdout.on('data', (data) => {
