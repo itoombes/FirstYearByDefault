@@ -7,10 +7,15 @@
 const { app, BrowserWindow } = require("electron");
 
 const createWindow = function() {
+    // Check if video folder exists.
+    // If not, make a folder and remember its path.
     const win = new BrowserWindow(
         {
             width: 800,
-            height: 600
+            height: 600,
+            webPreferences: {
+                nodeIntegration: true
+            }
         }
     );
     win.loadFile("./testApp/testIndex.html");
