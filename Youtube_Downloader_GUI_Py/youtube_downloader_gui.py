@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import yt_dlp
 import threading
 import re
+import subprocess
 
 def validate_url(url):
     return url.startswith('http://') or url.startswith('https://')
@@ -16,23 +16,29 @@ def download():
         messagebox.showerror("Invalid URL", "Please enter a valid YouTube URL.")
         return
 
-    ydl_opts = {
-        'ffmpeg_location': './ffmpeg-6.0-essentials_build/bin/',
-        'progress_hooks': [hook],
-        'format': 'bestaudio/best' if is_audio else 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
-    }
+    yt_dlp_path = './yt-dlp.exe'  # Update this to your yt-dlp path
+    ffmpeg_path = './ffmpeg-6.0-essentials_build/bin/'  # Update this to your ffmpeg path
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+    format_option = "bestaudio/best" if is_audio else "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
 
-    messagebox.showinfo("Download Complete", "Your file has been downloaded.")
+    command = [
+        yt_dlp_path,
+        '-f', format_option,
+        '--ffmpeg-location', ffmpeg_path,
+        url
+    ]
+
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # You can update status_label here based on the process output, if needed
+    stdout, stderr = process.communicate()
+
+    if process.returncode == 0:
+        messagebox.showinfo("Download Complete", "Your file has been downloaded.")
+    else:
+        messagebox.showerror("Download Failed", stderr.decode('utf-8'))
+
     status_label.config(text='Status: N/A')
-    url_entry.delete(0, tk.END)
-
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
-
-    messagebox.showinfo("Download Complete", "Your file has been downloaded.")
     url_entry.delete(0, tk.END)
 
 def hook(d):
@@ -44,7 +50,6 @@ def hook(d):
         status_label.config(text=status_text)
     elif d['status'] == 'finished':
         status_label.config(text='Download Complete')
-
 
 def on_entry_click(event):
     if url_entry.get() == 'Enter YouTube URL here':
