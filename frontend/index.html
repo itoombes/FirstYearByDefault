@@ -8,23 +8,45 @@
   </head>
   <body class="bg-dark-subtle">
 
-    <div class="container-sm bg-dark-subtle pb-4 overflow-hidden">
+    <div class="container-sm bg-dark-subtle pb-4 overflow-hidden text-center">
       <h1 class="display-1">download a video, easily</h1>
 
         <div class="mb-3">
 
-          <input type="text" class="form-control form-control.lg" id="inputString" aria-describedby="inputHelp" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-          <div id="inputHelp" class="form-text">You can type in a URL, or just search for a video.</div>
+          <div class="row justify-content-md-center">
+            <div class="col-lg-2">
+              <input type="text" class="form-control form-control.lg" id="inputString"
+                aria-describedby="inputHelp" placeholder="Enter a URL (e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ)">
+              <div id="inputHelp" class="form-text">You can type in a URL, or just search for a video.</div>
+            </div>
+          </div>
 
-          <button type="button" class="btn btn-primary" id="inputConfirm" onclick="sendInput()">Primary</button>
+          <div class="row">
 
-          <select class="bootstrap-select" id="inputOption">
-            <option value="bv" selected="selected">Best Video, mp4</option>
-            <option value="ba">Best Audio, mp3</option>
-            <option value="wv">Worst Video, mp4</option>
-            <option value="wa">Worst Audio, mp3</option>
-          </select>
+            <div class="col">
+              <select class="form-select" id="inputOption">
+                <option value="bv" selected="selected">Best Video, mp4</option>
+                <option value="ba">Best Audio, mp3</option>
+                <option value="wv">Worst Video, mp4</option>
+                <option value="wa">Worst Audio, mp3</option>
+              </select>
+            </div>
 
+            <div class="col col-lg-2">
+              <button type="button" class="btn btn-primary" id="inputConfirm" onclick="sendInput()">Download</button>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar" style="width: 25%">25%</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mb-3">
         </div>
         
 

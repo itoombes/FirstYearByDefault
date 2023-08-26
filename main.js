@@ -33,7 +33,7 @@ async function downloadVideo(videoURL, format) {
     videoID = videoURL.split("?v=")[1]
     const ytdlp = spawn('yt-dlp', [
         `${videoURL}`,
-        `-o downloads/${videoID}.%(ext)s`,
+        `-o downloads/${videoID}-${format}.%(ext)s`,
         '-N 10',
         `-f ${format}`,
         '--ffmpeg-location',

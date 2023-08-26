@@ -1,5 +1,6 @@
 secrets.json
 node_modules
+downloads
 *.opus
 *.mp*
-downloads/*
+*.webm
