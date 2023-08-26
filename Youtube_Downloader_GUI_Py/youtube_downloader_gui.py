@@ -21,6 +21,8 @@ def download():
 
     format_option = "bestaudio[ext=m4a]/best[ext=mp4]/best" if is_audio else "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
 
+    status_label.config(text='Status: Downloading, please wait.')
+
     command = [
         yt_dlp_path,
         '-f', format_option,
@@ -34,11 +36,13 @@ def download():
     stdout, stderr = process.communicate()
 
     if process.returncode == 0:
+        status_label.config(text='Status: Download complete!')
         messagebox.showinfo("Download Complete", "Your file has been downloaded.")
+    
     else:
         messagebox.showerror("Download Failed", stderr.decode('utf-8'))
 
-    status_label.config(text='Status: N/A')
+    status_label.config(text='Status: Waiting for download link.')
     url_entry.delete(0, tk.END)
 
 def hook(d):
@@ -72,7 +76,7 @@ title_label = tk.Label(window, text='YouTube Downloader')
 title_label.grid(row=0, column=0, columnspan=2, pady=10)
 
 #Status bar
-status_label = tk.Label(window, text='Status: N/A')
+status_label = tk.Label(window, text='Status: Waiting for download link.')
 status_label.grid(row=5, column=0, columnspan=2, pady=10)
 
 url_var = tk.StringVar()
