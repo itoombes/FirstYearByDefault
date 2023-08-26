@@ -1,0 +1,74 @@
+body {
+    background-color: #292727;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%; /* Set to whatever width you want or remove if not needed */
+    text-align: center; /* To center the text inside the form */
+    font-family: 'Cherry Bomb One';
+    }
+
+h1 {
+    text-align: centre;
+    font-size: 4em;
+    color: white;
+    font-family: 'Cherry Bomb One';
+}
+
+#form label {
+    /* margin: 50, 100; */
+    color: white;
+    display: block;
+    font-size: 1.7em;
+    margin-bottom: 0.5em;
+    }
+
+#form input {
+    display: block;
+    width: 90%;
+    /* /margin-bottom: 1rem; */
+    padding: .375rem .75rem;
+    font-size: 0.8rem;
+    line-height: 1.5; 
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+#form input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem #495057; /* adds glow effect */
+    }
+
+#form input[type="url"] {
+    border: 2px solid white; /* Default to white border */
+    color: #495057; /* Text color */
+}
+
+#form input[type="url"]:valid {
+    border: 2px solid #00FFCC;
+    }
+
+#form input[type="url"]:invalid {
+    border: 2px solid #E72950;
+    }
+
+#form button {
+    color: black;
+    background-color: #bfbfbf;
+    width: 10%;
+    height: 100%;
+    height: calc(1.7em + .75rem + 2px);
+    }
+
+.input-container {
+    display: flex;
+    align-items: center;
+    }
+
+.checkbox {
+    color: white;
+}

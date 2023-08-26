@@ -1,0 +1,37 @@
+{
+  "dependencies": {
+    "@googleapis/youtube": "^11.0.0",
+    "bootstrap": "^5.3.1",
+    "ffmpeg-static": "^5.2.0",
+    "tinyduration": "^3.3.0"
+  },
+  "devDependencies": {
+    "electron": "^26.1.0"
+  },
+  "name": "ytdlp-electron-wrapper",
+  "version": "0.1.0",
+  "description": "a tool which makes accessible the yt-dlp tool for non-power users",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itoombes/FirstYearByDefault.git"
+  },
+  "keywords": [
+    "util",
+    "nodejs",
+    "youtube",
+    "mp3",
+    "mp4",
+    "tool"
+  ],
+  "author": "The Fumbling First-Years",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itoombes/FirstYearByDefault/issues"
+  },
+  "homepage": "https://github.com/itoombes/FirstYearByDefault#readme"
+}
