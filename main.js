@@ -5,8 +5,8 @@ const { sandboxed } = require('process');
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 1000,
-    height: 600,
+    width: 1200,
+    height: 800,
     autoHideMenuBar: true,
     title: "download from youtube, easily",
     webPreferences: {
@@ -29,7 +29,7 @@ ipcMain.on("input", (event, data) => {
   );
 });
 
-async function downloadVideo(videoURL, format) {
+function downloadVideo(videoURL, format) {
     videoID = videoURL.split("?v=")[1]
     const ytdlp = spawn('yt-dlp', [
         `${videoURL}`,
@@ -40,15 +40,15 @@ async function downloadVideo(videoURL, format) {
         './node_modules./ffmpeg-static/'
     ])
 
-    await ytdlp.stdout.on('data', (data) => {
+    ytdlp.stdout.on('data', (data) => {
         console.log(data.toString())
     })
 
-    await ytdlp.stderr.on('data', (data) => {
+    ytdlp.stderr.on('data', (data) => {
         console.error(data.toString())
     })
 
-    await ytdlp.on('exit', (code) => {
+    ytdlp.on('exit', (code) => {
         console.log(`Exited with code ${code}`)
     })
 }
