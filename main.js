@@ -1,12 +1,13 @@
 
 /* 
     Import components of the Electron Module:
-        1. app: Controls the App's Event Lifecycle
+        1. app: Controls the App's Event Lifecycle (Not sure what that is...)
         2. BrowserWindow: Generates + Manages App windows
 */
+
 const { app, BrowserWindow } = require("electron");
 
-// Generate a BrowserWindow, using the 
+// Generate a BrowserWindow, using the HTML file
 const createWindow = function() {
     const win = new BrowserWindow(
         {
@@ -14,7 +15,7 @@ const createWindow = function() {
             height: 500
         }
     );
-    win.loadFile("./Youtube_Downloader_Front_End/home.html");
+    win.loadFile("./frontend/home.html");
 
     app.on(
         'activate', 
