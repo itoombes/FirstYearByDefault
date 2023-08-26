@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { spawn } = require('child_process')
 const path = require('path');
 const { sandboxed } = require('process');
+const { once } = require('events');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -22,23 +23,45 @@ app.whenReady().then(() => {
 });
 
 ipcMain.on("input", (event, data) => {
-  url = data.videoURL
-  format = data.format
-  downloadVideo(url, format).then(
-    event.reply("reply", `downloaded ${url}`)
-  );
+  url = data.videoURL;
+  format = data.format;
+  fileType = data.fileType;
+  downloadVideo(url, format, fileType)
+  event.reply("reply", `downloaded ${url}`)
 });
 
-function downloadVideo(videoURL, format) {
+function downloadVideo(videoURL, format, fileType) {
     videoID = videoURL.split("?v=")[1]
-    const ytdlp = spawn('yt-dlp', [
+    options = []
+
+    if (format == "ba" || format == "wa") {
+      options = [
         `${videoURL}`,
         `-o downloads/${videoID}-${format}.%(ext)s`,
         '-N 10',
-        `-f ${format}`,
+        '-f',
+        `${format}`,
+        '-x',
+        '--audio-format',
+        `${fileType}`,
         '--ffmpeg-location',
         './node_modules./ffmpeg-static/'
-    ])
+      ]
+    } else {
+      options = [
+        `${videoURL}`,
+        `-o downloads/${videoID}-${format}.%(ext)s`,
+        '-N 10',
+        '-f',
+        `${format}`,
+        '--remux-video'
+        `${fileType}`,
+        '--ffmpeg-location',
+        './node_modules./ffmpeg-static/'
+      ]
+    }
+
+    const ytdlp = spawn('yt-dlp', options)
 
     ytdlp.stdout.on('data', (data) => {
         console.log(data.toString())

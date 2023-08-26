@@ -3,6 +3,7 @@
     "@googleapis/youtube": "^11.0.0",
     "bootstrap": "^5.3.1",
     "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
     "tinyduration": "^3.3.0"
   },
   "devDependencies": {

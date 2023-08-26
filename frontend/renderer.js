@@ -6,11 +6,14 @@ function sendInput() {
     console.log("Invalid input string!");
     return 0;
   }
+  format = option.split("-")[0]
+  fileType = option.split("-")[1]
   data = {
     videoURL: video,
-    format: option
+    format: format,
+    fileType: fileType
   }
-  console.log(video);
+  console.log(data);
   window.api.send("input", data);
   return 1;
 }
