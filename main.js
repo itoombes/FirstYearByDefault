@@ -21,18 +21,21 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-ipcMain.on("input", (event, video) => {
-  downloadSong(video).then(
-    event.reply("reply", `downloaded ${video}`)
+ipcMain.on("input", (event, data) => {
+  url = data.videoURL
+  format = data.format
+  downloadVideo(url, format).then(
+    event.reply("reply", `downloaded ${url}`)
   );
 });
 
-async function downloadSong(videoURL, videoID) {
+async function downloadVideo(videoURL, format) {
+    videoID = videoURL.split("?v=")[1]
     const ytdlp = spawn('yt-dlp', [
         `${videoURL}`,
-        `-o ./${videoID}.%(ext)s`,
+        `-o downloads/${videoID}-${format}.%(ext)s`,
         '-N 10',
-        '-f best',
+        `-f ${format}`,
         '--ffmpeg-location',
         './node_modules./ffmpeg-static/'
     ])
