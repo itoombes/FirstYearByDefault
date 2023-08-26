@@ -1,9 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { spawn } = require('child_process')
 const path = require('path');
-const { sandboxed } = require('process');
-const { once } = require('events');
 
+// Creates a window and loads a document within it
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1200,
@@ -22,18 +21,25 @@ app.whenReady().then(() => {
   createWindow();
 });
 
+// when data is received from the ipcRenderer process
 ipcMain.on("input", (event, data) => {
+  // extract the relevant data
   url = data.videoURL;
   format = data.format;
   fileType = data.fileType;
+  
+  // send a download request to yt-dlp
   downloadVideo(url, format, fileType)
+
+  // send a confirmation message back to the ipcRenderer
   event.reply("reply", `downloaded ${url}`)
 });
 
 function downloadVideo(videoURL, format, fileType) {
     videoID = videoURL.split("?v=")[1]
+    
+    // adjust the yt-dlp arguments based on user input
     options = []
-
     if (format == "ba" || format == "wa") {
       options = [
         `${videoURL}`,
