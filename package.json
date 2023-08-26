@@ -10,6 +10,7 @@
     "tinyduration": "^3.3.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.4.1",
     "electron": "^26.1.0"
   },
   "scripts": {
