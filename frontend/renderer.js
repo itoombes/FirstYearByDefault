@@ -28,6 +28,19 @@ function sendInput() {
   return 1;
 }
 
+function sendInputSearch() {
+  // pull values from the UI
+  query = document.getElementById("searchInput").value;
+
+  // send this to the ipcMain process
+  window.api.send("search", query);
+  console.log(`pressed the button, data is ${query}`)
+}
+
+window.api.receive("search", (results) => {
+  console.log(results)
+})
+
 // when ipcMain sends back a reply, log it
 window.api.receive("reply", (reply) => {
   console.log(reply)
