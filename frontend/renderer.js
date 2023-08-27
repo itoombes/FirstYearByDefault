@@ -36,10 +36,20 @@ window.api.receive("reply", (reply) => {
 window.api.receive("output", (data) => {
   data = new TextDecoder().decode(data)
   if (data.startsWith('\r[download]')) {
-    downloadInfo = parseInt(data.split("of")[0].split("]")[1].split("%")[0].trim())
-    console.log(downloadInfo)
-    document.getElementById("progressBar").style.width = downloadInfo + "%"
-    document.getElementById("progressBar").ariaValueNow = downloadInfo
+    downloadInt = parseInt(data.split("of")[0].split("]")[1].split("%")[0].trim())
+    progressWrapper = document.getElementById("progressWrapper")
+    progressBar = document.getElementById("progressBar")
+    downloadString = `${downloadInt}%`
+
+    progressWrapper.ariaValueNow = downloadInt
+    progressBar.style.width = downloadString
+    progressBar.innerHTML = downloadString
+
+    if (downloadInt == 100) {
+      progressBar.classList.add("bg-success")
+    } else if (downloadInt < 100) {
+      progressBar.classList.remove("bg-success")
+    }
     
   }
 })
