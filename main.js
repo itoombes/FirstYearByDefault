@@ -2,19 +2,23 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { spawn } = require('child_process')
 const path = require('path');
 
+browserOptions = {
+  width: 1200,
+  height: 800,
+  autoHideMenuBar: true,
+  title: "download from youtube, easily",
+  webPreferences: {
+    preload: path.join(__dirname, "preload.js"),
+  }
+}
+
+var win = null
 // Creates a window and loads a document within it
 const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    autoHideMenuBar: true,
-    title: "download from youtube, easily",
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    }
-  });
+  win = new BrowserWindow(browserOptions);
   win.loadFile('./frontend/index.html');
   win.webContents.openDevTools();
+  return win
 }
 
 app.whenReady().then(() => {
@@ -50,7 +54,7 @@ function downloadVideo(videoURL, videoID, format, fileType) {
         '--audio-format',
         `${fileType}`,
         '--ffmpeg-location',
-        './node_modules./ffmpeg-static/'
+        './node_modules/ffmpeg-static/'
       ]
     } else {
       options = [
@@ -62,17 +66,19 @@ function downloadVideo(videoURL, videoID, format, fileType) {
         '--remux-video',
         `${fileType}`,
         '--ffmpeg-location',
-        './node_modules./ffmpeg-static/'
+        './node_modules/ffmpeg-static/'
       ]
     }
 
     const ytdlp = spawn('yt-dlp', options)
 
     ytdlp.stdout.on('data', (data) => {
+        win.webContents.send("output", data)
         console.log(data.toString())
     })
 
     ytdlp.stderr.on('data', (data) => {
+        win.webContents.send("output", data)
         console.error(data.toString())
     })
 

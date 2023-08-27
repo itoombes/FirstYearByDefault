@@ -32,3 +32,8 @@ function sendInput() {
 window.api.receive("reply", (reply) => {
   console.log(reply)
 })
+
+window.api.receive("output", (data) => {
+  data = new TextDecoder().decode(data)
+  console.log(data)
+})
