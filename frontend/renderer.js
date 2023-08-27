@@ -35,5 +35,11 @@ window.api.receive("reply", (reply) => {
 
 window.api.receive("output", (data) => {
   data = new TextDecoder().decode(data)
-  console.log(data)
+  if (data.startsWith('\r[download]')) {
+    downloadInfo = parseInt(data.split("of")[0].split("]")[1].split("%")[0].trim())
+    console.log(downloadInfo)
+    document.getElementById("progressBar").style.width = downloadInfo + "%"
+    document.getElementById("progressBar").ariaValueNow = downloadInfo
+    
+  }
 })
