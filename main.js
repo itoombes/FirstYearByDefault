@@ -17,7 +17,6 @@ var win = null
 const createWindow = () => {
   win = new BrowserWindow(browserOptions);
   win.loadFile('./frontend/index.html');
-  win.webContents.openDevTools();
   return win
 }
 
@@ -37,7 +36,7 @@ ipcMain.on("input", (event, data) => {
   downloadVideo(url, id, format, fileType)
 
   // send a confirmation message back to the ipcRenderer
-  event.reply("reply", `downloaded ${url}`)
+  event.reply("reply", `attempting download with parameters ${format}/${fileType}...`)
 });
 
 function downloadVideo(videoURL, videoID, format, fileType) {
